@@ -565,8 +565,10 @@
 			$subscription_info->subscriptionID = $subscription_id;
 			$request->recurringSubscriptionInfo = $subscription_info;
 			
-			// the only information that can change is the billing info, so load all that
 			$request->billTo = $this->create_bill_to();
+			if (!empty($this->card)) {
+				$request->card = $this->create_card();
+			}
 			
 			$response = $this->run_transaction( $request );
 			
